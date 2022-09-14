@@ -17,4 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [VoituresController::class,'index'])->name('voitures');
 Route::get('/create',[VoituresController::class,'create'])->name('ajoutervoiture');
 Route::post('/createvoiture',[VoituresController::class,'store']);
-
+Route::get('/show/{id}',[VoituresController::class,'show']);
+Route::get('/edit/{id}',[VoituresController::class,'edit']);
+Route::put('/update/{id}',[VoituresController::class,'update']);
+Route::delete('/{id}/delete',[VoituresController::class,'destroy']);

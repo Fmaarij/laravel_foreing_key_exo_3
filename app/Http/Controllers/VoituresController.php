@@ -18,7 +18,7 @@ class VoituresController extends Controller {
     public function index() {
         $cars = Voitures::all();
         $colors = Couleur::all();
-        return view('pages.voitures.index', compact( 'cars','colors' ) );
+        return view( 'pages.voitures.index', compact( 'cars', 'colors' ) );
     }
 
     /**
@@ -63,8 +63,9 @@ class VoituresController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function show( Voitures $voitures ) {
-        //
+    public function show( $id ) {
+        $cars = Voitures::find( $id );
+        return view( 'pages.voitures.show', compact( 'cars' ) );
     }
 
     /**
@@ -74,8 +75,9 @@ class VoituresController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function edit( Voitures $voitures ) {
-        //
+    public function edit( $id ) {
+        $cars = Voitures::find( $id );
+        return view( 'pages.voitures.edit', compact( 'cars' ) );
     }
 
     /**
@@ -86,8 +88,19 @@ class VoituresController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function update( UpdateVoituresRequest $request, Voitures $voitures ) {
-        //
+    public function update( Request $request, $id ) {
+
+        $colors = Couleur::find( $id );
+        $colors->couleur = $request->couleur;
+        $colors->save();
+
+        $cars = Voitures::find( $id );
+        $cars->marque = $request->marque;
+        $cars->annee = $request->annee;
+        $cars->couleur_id = $colors->id;
+        $cars->save();
+
+        return redirect( '/' );
     }
 
     /**
@@ -97,7 +110,10 @@ class VoituresController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function destroy( Voitures $voitures ) {
-        //
+    public function destroy( Request $request, $id ) {
+        $cars = Voitures::find( $id );
+        $cars->couleur()->delete();
+        return redirect( '/' );
+
     }
 }

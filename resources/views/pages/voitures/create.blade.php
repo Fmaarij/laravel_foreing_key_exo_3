@@ -13,9 +13,6 @@
 
     <label for="">Couleur</label>
     <input type="text" name="couleur" id="">
-{{--
-    <label for="">Couleur_ID</label>
-    <input type="number" name="couleur_id" id=""> --}}
 
     <button type="submit">Ajouter</button>
 
